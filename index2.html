@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Guess the Number Game</h1>
+        <div class="text-center">
+            <p>Guess a number between 1 and 10000:</p>
+            <input type="text" id="guess" class="form-control" placeholder="Enter your guess">
+            <button id="check" class="btn btn-primary mt-2">Check</button>
+            <button id="showAnswer" class="btn btn-secondary mt-2 ml-2">Show Answer</button>
+            <p id="message" class="mt-3"></p>
+        </div>
+    </div>
+
+    <div id="answerCard" class="card text-center mt-3" style="display: none;">
+        <div class="card-body">
+            <h5 class="card-title">Randomly Generated Number</h5>
+            <p class="card-text" id="answerNumber"></p>
+        </div>
+    </div>
+
+    <script>
+        const random_number = {{ random_number }};
+        const guessInput = document.getElementById('guess');
+        const checkButton = document.getElementById('check');
+        const messageElement = document.getElementById('message');
+        const showAnswerButton = document.getElementById('showAnswer');
+        const answerCard = document.getElementById('answerCard');
+        const answerNumber = document.getElementById('answerNumber');
+
+        checkButton.addEventListener('click', function () {
+            const userGuess = parseInt(guessInput.value);
+            if (userGuess === random_number) {
+                messageElement.innerText = 'Congratulations! You guessed it right!';
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'white';
+                document.body.innerHTML += `
+                    <div class="graffiti">
+                        <p class="text-center mt-4">🎉 Congratulations Correct answer 🎉</p>
+                    </div>
+                `;
+            } else if (userGuess < random_number) {
+                messageElement.innerText = 'Guess is too small.';
+            } else {
+                messageElement.innerText = 'Guess is too big.';
+            }
+        });
+
+        showAnswerButton.addEventListener('click', function () {
+            answerCard.style.display = 'block';
+            answerNumber.innerText = random_number;
+        });
+    </script>
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
